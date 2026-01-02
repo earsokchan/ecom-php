@@ -103,25 +103,20 @@
 </div>
 
 <script>
-        // Fetch product data from the API
-        fetch('http://localhost/ecommercephp/Admin/pages/tables/upload_product.php')
+        // Fetch product data from the JSON file
+        fetch('item-product/products.json')
             .then(response => response.json())
             .then(products => {
                 const productContainer = document.getElementById('product-container');
                 productContainer.innerHTML = '';  // Clear existing content
-
-                if (products.error) {
-                    console.error('Error fetching products:', products.error);
-                    return;
-                }
 
                 // Loop through each product and create the HTML structure
                 products.forEach(product => {
                     const productItem = document.createElement('div');
                     productItem.classList.add('col-12', 'col-md-4', 'col-lg-3', 'mb-5');
 
-                    // Fixing the image URL by replacing escaped backslashes
-                    const imageUrl = 'http://localhost/ecommercephp/Admin/pages/tables/' + product.image_url.replace(/\\/g, '/');
+                    // Use image URL directly from JSON
+                    const imageUrl = product.image_url;
 
                     productItem.innerHTML = `
                         <div class="product-item">
